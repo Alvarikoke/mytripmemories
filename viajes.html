@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Descripcion larga">
+  <meta name="keywords" content="intro,html,css,ejemplo,daw">
+  <meta name="description" content="Alvaro Gonzalez">
+  <meta name="robots" content="">
+  <meta property="og:title" content="Titulo redes sociales">
+  <!-- Esto es para que aparezca otro titulo en redes sociales -->
+  <meta property="og:description" content="Descripcion redes sociales">
+  <!-- Esto es para que aparezca otra descripcion en redes sociales -->
+  <meta name="author" content="width=device-width, initial-scale=1.0">
+
+  <link rel="canonical" href="URL">
+  <!-- Esto es para decirle a los navegadores (sin forzar) cual es la pagina original si hay multiples redireccionamientos -->
+  <!-- <base href="https://pagina.com">  Esto es para forzar a los navegadores a que usen esta URL por defecto, y no empezando por "www" o "http" por ejemplo -->
+  <link rel="icon" type="image/x-icon" href="URL">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <title>My Trip Memories - Viajes</title>
+
+</head>
+
+<body>
+  <header>
+    <nav><a id="logout" href="/logout">Logout</a></nav>
+  </header>
+  <main>
+    <article>
+      <div>
+        <h2>Tus viajes</h2>
+      </div>
+      <div id="viajes"></div>
+      <template id="viajes-template">
+        <ul>
+          {{#each viajes}}
+          <li>{{trip_name}}</li>
+          {{/each}}
+        </ul>
+      </template>
+    </article>
+  </main>
+
+  <script src="js/viajes.js"></script>
+</body>
+
+</html>

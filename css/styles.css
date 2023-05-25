@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para el encabezado */
+header {
+    width: 100vw;
+    height: 20vh;
+    position: absolute;
+    z-index: 10;
+    max-height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #1681ba;
+    box-shadow: 5px 1px 18px black;
+}
+
+/* Estilos para la navegación */
+nav {
+    margin: 20px;
+}
+
+nav a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #333333;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+/* Estilos para el contenido principal */
+main {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2AABEE;
+}
+article {
+    width: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 250px 100px 0;
+}
+
+/* Estilos para los títulos */
+h2, h1, h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 900;
+    text-align: center;
+    margin: 20px 0;
+}
+h1 {
+    font-size: 5rem;
+}
+h2 {
+    font-size: 3rem;
+}
+/* Estilos para los párrafos */
+p {
+    color: #fff;
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el enlace de agregar */
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #333333;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.agregarBot {
+    margin-top: 20px;
+}
+
+a:hover {
+    background-color: #8C8C8C;
+}
+
+/* Mapa */
+#map {
+    width: 1200px;
+    height: 720px;
+    border-radius: 5px;
+}
+
+/* Formulario de registro */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form div {
+    width: 500px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+label {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #fff;
+}
+input[type=submit] {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #333333;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type=submit]:hover {
+    background-color: #8C8C8C;
+    cursor: pointer;
+}
