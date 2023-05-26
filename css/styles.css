@@ -134,3 +134,14 @@ input[type=submit]:hover {
     background-color: #8C8C8C;
     cursor: pointer;
 }
+li {
+    list-style-type: none;
+}
+.linkViaje {
+    background-color: #ffffff;
+    color: #333333;
+}
+.linkViaje:hover {
+    background-color: #1681ba;
+    color: #ffffff
+}

@@ -16,11 +16,11 @@ const port = 3000;
 
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
-    secret: "@54bcl5]4Q++r7p=i2H]2ffw*71X~ZNnHXxptrGW",
-    // secret: secret,
-    saveUninitialized:true,
-    cookie: { maxAge: oneDay },
-    resave: false 
+  secret: "@54bcl5]4Q++r7p=i2H]2ffw*71X~ZNnHXxptrGW",
+  // secret: secret,
+  saveUninitialized: true,
+  cookie: { maxAge: oneDay },
+  resave: false
 }));
 
 const con = mysql.createConnection({
@@ -33,7 +33,7 @@ const con = mysql.createConnection({
 // parsing the incoming data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ credentials: true, origin: true }));
 
 //serving public file
 app.use(express.static(__dirname));
@@ -43,14 +43,6 @@ app.use(cookieParser());
 
 // a variable to save a session
 var session;
-
-app.get('/',(req,res) => {
-  session=req.session;
-  if(session.userid){
-      res.send("Welcome User <a href=\'/logout'>click to logout</a>");
-  }else
-  res.sendFile('index.html',{root:__dirname})
-});
 
 app.post('/registro', (req, res) => {
   const username = req.body.username;
@@ -67,19 +59,19 @@ app.post('/registro', (req, res) => {
       res.sendStatus(500); // Enviar código de error al cliente
     } else {
       if (rows.length > 0) {
-          // El chat_id existe, hacer un UPDATE en la base de datos
-          const updateQuery = "UPDATE users SET username = ?, password = ? WHERE chat_id = ?";
-          const updateValues = [username, password, chat_id];
+        // El chat_id existe, hacer un UPDATE en la base de datos
+        const updateQuery = "UPDATE users SET username = ?, password = ? WHERE chat_id = ?";
+        const updateValues = [username, password, chat_id];
 
-          con.query(updateQuery, updateValues, function (err, result) {
-              if (err) {
-                console.log("Error en la actualización del usuario:", err);
-                res.sendStatus(500);
-              } else {
-                console.log("Usuario actualizado: " + result.affectedRows);
-                res.sendStatus(200); // Enviar código de éxito al cliente
-              }
-            });
+        con.query(updateQuery, updateValues, function (err, result) {
+          if (err) {
+            console.log("Error en la actualización del usuario:", err);
+            res.sendStatus(500);
+          } else {
+            console.log("Usuario actualizado: " + result.affectedRows);
+            res.sendStatus(200); // Enviar código de éxito al cliente
+          }
+        });
       } else {
         // Verificar si el usuario existe en la base de datos
         const checkUserQuery = "SELECT * FROM users WHERE username = ?";
@@ -132,7 +124,7 @@ app.post('/login', (req, res) => {
       res.sendStatus(500);
     } else {
       if (rows.length > 0) {
-        console.log("Inicio de sesión exitoso");
+        console.log("Inicio de sesión exitoso: " + req.session.id);
         session = req.session;
         session.userid = req.body.username;
         console.log(session.userid);
@@ -162,10 +154,11 @@ app.get('/logout', (req, res) => {
 
 app.get('/viajes', (req, res) => {
   const username = req.session.userid; // Obtener el ID del usuario de la sesión
-  console.log(req.session.userid)
+  console.log("Session ID: " + req.session.id)
+  console.log("User ID: " + req.session.userid)
 
   // Realizar la consulta a la base de datos para obtener los viajes del usuario
-  const query = "SELECT trips.trip_name FROM users " +
+  const query = "SELECT DISTINCT trips.trip_name FROM users " +
     "INNER JOIN principal ON users.user_id = principal.user_id " +
     "INNER JOIN trips ON principal.trip_id = trips.trip_id " +
     "WHERE users.username = ?";
@@ -183,11 +176,34 @@ app.get('/viajes', (req, res) => {
 });
 
 // Mapa
+app.post('/mapa', (req, res) => {
+  const username = req.session.userid; // Obtener el ID del usuario de la sesión
+  const trip_name = req.body.trip_name;
+  console.log("Session ID: " + req.session.id)
+  console.log("User ID: " + req.session.userid)
+  console.log("Viaje seleccionado: " + trip_name)
 
-// "SELECT images.image_url, images.latitude, images.longitude, images.image_name, trips.trip_name FROM images
-//           INNER JOIN principal ON principal.image_id = images.image_id
-//           INNER JOIN trips ON principal.trip_id = trips.trip_id"
-  
+  // Realizar la consulta a la base de datos para obtener los viajes del usuario
+  const query = "SELECT images.image_url, images.latitude, images.longitude, images.image_name FROM images " +
+    "INNER JOIN principal ON principal.image_id = images.image_id " +
+    "INNER JOIN trips ON principal.trip_id = trips.trip_id " +
+    "INNER JOIN users ON principal.user_id = users.user_id " +
+    "WHERE users.username = ? AND trips.trip_name = ?";
+    console.log("Consulta: " + query)
+  const values = [username, trip_name];
+
+  con.query(query, values, function (err, rows) {
+    if (err) {
+      console.log("Error en la consulta de viajes:", err);
+      res.sendStatus(500);
+    } else {
+      console.log(rows)
+      res.setHeader('Content-Type', 'application/json'); // Set the response content type to JSON
+      res.send(JSON.stringify(rows)); // Send the results as a JSON string
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
