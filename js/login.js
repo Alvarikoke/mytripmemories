@@ -1,3 +1,5 @@
+'use strict'
+
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault(); // Evitar que se envíe el formulario de manera predeterminada
   

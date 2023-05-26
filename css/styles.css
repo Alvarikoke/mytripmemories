@@ -134,8 +134,14 @@ input[type=submit]:hover {
     background-color: #8C8C8C;
     cursor: pointer;
 }
+.lista {
+    display: grid;
+    grid-template-rows: repeat(5, min-content);
+    grid-auto-flow: column;
+}
 li {
     list-style-type: none;
+    margin-bottom: 5px;
 }
 .linkViaje {
     background-color: #ffffff;

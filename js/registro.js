@@ -1,3 +1,5 @@
+'use strict'
+
 // Extraer la URL
 let currentUrl = window.location.href;
 

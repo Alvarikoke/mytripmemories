@@ -1,3 +1,5 @@
+'use strict'
+
 let mysql = require('mysql');
 
 var con = mysql.createConnection({

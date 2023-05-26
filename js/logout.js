@@ -1,3 +1,5 @@
+'use strict'
+
 document.getElementById('logout').addEventListener("click", function () {
   fetch('http://localhost:3000/logout', {
       method: 'POST',

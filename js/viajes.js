@@ -1,22 +1,27 @@
+'use strict'
+
 document.addEventListener('DOMContentLoaded', function () {
-    const template = document.getElementById('viajes-template');
-    const templateContent = template.content;
-    const viajesContainer = document.getElementById('viajes');
+    const plantilla = document.getElementById('viajes-template');
+    const contenedor = document.getElementById('lista');
 
     fetch('/viajes', {
       credentials: 'include'
     })
       .then(response => response.json())
       .then(data => {
-        const fragment = document.createDocumentFragment();
 
         data.forEach(viaje => {
-          const clone = document.importNode(templateContent, true);
+          let envolver = document.createElement("li");
+          let nuevoViaje = plantilla.content.cloneNode(true);
+
           let viajeName = viaje.trip_name;
           console.log(viajeName)
-          clone.querySelector('.linkViaje').textContent = decodeURIComponent(viajeName);
-          clone.querySelector('.linkViaje').setAttribute('href', "mapa.html?trip=" + viajeName);
-          fragment.appendChild(clone);
+
+          nuevoViaje.querySelector('.linkViaje').textContent = decodeURIComponent(viajeName);
+          nuevoViaje.querySelector('.linkViaje').setAttribute('href', "mapa.html?trip=" + viajeName);
+
+          envolver.appendChild(nuevoViaje);       
+          contenedor.appendChild(envolver);
         });
 
         viajesContainer.appendChild(fragment);
