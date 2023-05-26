@@ -13,10 +13,9 @@ document.addEventListener('DOMContentLoaded', function () {
         data.forEach(viaje => {
           const clone = document.importNode(templateContent, true);
           let viajeName = viaje.trip_name;
-          let viajeEncoded = encodeURI(viajeName.toString());
-          clone.querySelector('.linkViaje').textContent = viajeName;
-          clone.querySelector('.linkViaje').setAttribute('href', "mapa.html?trip=" + viajeEncoded);
-          console.log(viajeEncoded)
+          console.log(viajeName)
+          clone.querySelector('.linkViaje').textContent = decodeURIComponent(viajeName);
+          clone.querySelector('.linkViaje').setAttribute('href', "mapa.html?trip=" + viajeName);
           fragment.appendChild(clone);
         });
 
