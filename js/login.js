@@ -27,7 +27,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         window.location.href = "viajes.html";
       } else {
         console.log("Error en el login");
-        // Aquí puedes mostrar un mensaje de error al usuario
+        // Aquí se puede mostrar un mensaje de error al usuario
       }
     })
     .catch(error => {

@@ -41,7 +41,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
       window.location.href = "login.html";
     } else {
       console.log("Error en el registro");
-      // Aquí puedes mostrar un mensaje de error al usuario
+      // Aquí se puede mostrar un mensaje de error al usuario
     }
   })
   .catch(error => {

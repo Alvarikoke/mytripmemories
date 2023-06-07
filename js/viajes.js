@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
           envolver.appendChild(nuevoViaje);       
           contenedor.appendChild(envolver);
         });
-
-        viajesContainer.appendChild(fragment);
       })
       .catch(error => console.log(error));
 });

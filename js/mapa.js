@@ -7,6 +7,9 @@ let currentUrl = window.location.href;
 const trip_name = currentUrl.substring(currentUrl.lastIndexOf('=') + 1);
 console.log("Extracto de la URL: " + trip_name)
 
+// Insertar el nombre del viaje
+document.querySelector('h2').textContent = "Mapa de tu viaje a " + decodeURIComponent(trip_name);
+
 const data = {
   trip_name: trip_name,
 };
@@ -33,13 +36,11 @@ fetch("/mapa", {
     const templateContent = template.content;
 
     data.forEach(item => {
-      const image = new Image();
-      image.src = item.image_url;
       const marker = L.marker([item.latitude, item.longitude]).addTo(map);
-      // marker.bindPopup(`<strong>${item.image_name}</strong><br><img src="${item.image_url}" alt="${item.image_name}">`).openPopup();
       marker.on('click', function () {
         const clone = document.importNode(templateContent, true);
         clone.querySelector('h3').textContent = item.image_name;
+        clone.querySelector('a').setAttribute('href', item.image_url)
         clone.querySelector('img').setAttribute('src', item.image_url)
         L.popup().setContent(clone).setLatLng(marker.getLatLng()).openOn(map);
       });

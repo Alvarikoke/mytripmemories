@@ -9,17 +9,9 @@ const sessions = require('express-session');
 const app = express();
 const port = 3000;
 
-// let result = '';
-// while (result.length < 30) {
-//   const randomChar = String.fromCodePoint(Math.floor(Math.random() * (0x10FFFF - 0x20 + 1)) + 0x20);
-//   result += randomChar;
-// }
-// const secret = result;
-
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
   secret: "@54bcl5]4Q++r7p=i2H]2ffw*71X~ZNnHXxptrGW",
-  // secret: secret,
   saveUninitialized: true,
   cookie: { maxAge: oneDay },
   resave: false
@@ -185,7 +177,7 @@ app.post('/mapa', (req, res) => {
   console.log("User ID: " + req.session.userid)
   console.log("Viaje seleccionado: " + trip_name)
 
-  // Realizar la consulta a la base de datos para obtener los viajes del usuario
+  // Realizar la consulta a la base de datos para obtener las imágenes del viaje seleccionado
   const query = "SELECT images.image_url, images.latitude, images.longitude, images.image_name FROM images " +
     "INNER JOIN principal ON principal.image_id = images.image_id " +
     "INNER JOIN trips ON principal.trip_id = trips.trip_id " +
